@@ -16,7 +16,7 @@ export class NavComponent implements OnInit {
 
   login() {
     // tslint:disable-next-line:max-line-length
-    this.authservice.login(this.model).subscribe(next => {console.log('Logged in sucessful'); }, error => {console.log('Failed to login'); });
+    this.authservice.login(this.model).subscribe(next => {console.log('Logged in sucessful'); }, error => {console.log(error); });
   }
 
   loggedIn(){
