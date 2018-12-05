@@ -45,7 +45,7 @@ namespace DatingApp.API.Data
         public async Task<Users> Register(Users user, string password)
         {
             byte[] passwordHash, passwordSalt;
-            CreatePassword(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
@@ -56,7 +56,7 @@ namespace DatingApp.API.Data
             return user;
         }
 
-        private void CreatePassword(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
