@@ -39,6 +39,8 @@ namespace DatingApp.API.Data
 
         public async Task<bool> SaveAll()
         {
+           // This is not working
+           // _db.ChangeTracker.AutoDetectChangesEnabled = false;
             return await _db.SaveChangesAsync() > 0;
         }
     }

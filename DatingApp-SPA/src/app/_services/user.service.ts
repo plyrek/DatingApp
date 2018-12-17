@@ -22,4 +22,9 @@ getUser(id): Observable<User> {
   return this.http.get<User>(this.baseUrl + 'userdata/' + id);
 }
 
+// Method called from the member-edit component to connect to the server and save changed users profile data
+updateUser(id: number, user: User) {
+  return this.http.put(this.baseUrl + 'userdata/' + id, user);
+}
+
 }

@@ -22,7 +22,7 @@ export class MemberDetailComponent implements OnInit {
       // this.loadUser();
 
       // new method using resolver class
-      this.route.data.subscribe(data =>{
+      this.route.data.subscribe(data => {
         this.user = data['user'];
       });
 
