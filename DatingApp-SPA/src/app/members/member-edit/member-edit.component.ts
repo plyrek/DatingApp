@@ -19,6 +19,7 @@ export class MemberEditComponent implements OnInit {
 
   // this varible declaration must be before the HostListener and below the @ViewChild for everything to work
   user: User;
+  photoUrl: string;
 
   // Stops the user from closing the browser if changes are made to the form
   @HostListener('window:beforeunload', ['$event'])
@@ -33,6 +34,7 @@ export class MemberEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data['user'];
+      this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
     });
   }
 
@@ -47,5 +49,11 @@ export class MemberEditComponent implements OnInit {
       this.editForm.reset(this.user); }, error => {
       this.alertify.error('An error has occured. Please try again.');
     });
+  }
+
+  // This method updates the photo on the member-edit component html by taking the photoUrl string from the Output
+  // decorator from the photo-editor component and returning it to the member edit html.
+  updateMainPhoto(photoUrl: string){
+    this.user.photoUrl = photoUrl;
   }
 }
