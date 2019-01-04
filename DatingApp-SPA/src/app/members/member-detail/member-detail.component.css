@@ -17,3 +17,7 @@
  .tab-panel p, h4{
     margin: 10px 15px;
   }
+
+  ngx-gallery /deep/ .ngx-gallery-icon {
+    color: #e9e7e7;
+  }
