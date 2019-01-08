@@ -58,6 +58,16 @@ export class PhotoEditorComponent implements OnInit {
             isMain: res.isMain
           };
           this.photos.push(photo);
+          if (photo.isMain) {
+        // This is the replacement code that uses the BehaviourSubject method
+            this.authService.changeMemberPhoto(photo.url);
+
+        // This code sets the currentUser photo.url variable in the authServer to the photoUrl from the BehaviorSubject
+            this.authService.currentUser.photoUrl = photo.url;
+
+        // This code then writes the entire currentUser variable including the new photo.url back into the user property in local storage
+            localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+          }
         }
       };
     }

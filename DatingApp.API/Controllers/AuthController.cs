@@ -39,14 +39,25 @@ namespace DatingApp.API.Controllers
                 return BadRequest("Username already exists");
             }
 
-            var userToCreate = new Users
-            {
-                Username = userForRegister.username
-            };
+            // This code was used before we automapped the RegisterForUser DTO to the User Database 
+                //var userToCreate = new Users
+                 // {
+                //     Username = userForRegister.username
+                // };
+
+            // Now we can use the auto mapper for this function
+            var userToCreate = _mapper.Map<Users>(userForRegister);
 
             var createdUser = await _repo.Register(userToCreate, userForRegister.password);
 
-            return StatusCode(201);
+            // Creates a user to return that does not contain the password.
+            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+
+            // This was a security workaround that was used as a cheat during early stages of development
+                // return StatusCode(201);
+            
+            // This is the final solution which uses a location header
+            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.ID}, userToReturn);
         }
 
         [HttpPost("login")]
