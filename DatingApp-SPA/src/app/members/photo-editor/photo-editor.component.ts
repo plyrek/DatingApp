@@ -71,6 +71,7 @@ export class PhotoEditorComponent implements OnInit {
         }
       };
     }
+
   setMainPhoto(photo: Photo) {
     this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
     this.currentMain = this.photos.filter(p => p.isMain === true) [0];
@@ -102,9 +103,5 @@ export class PhotoEditorComponent implements OnInit {
         this.alertify.error('Failed to delete the photo');
       });
     });
-
-
   }
-
-
 }
