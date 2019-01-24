@@ -5,7 +5,9 @@ namespace DatingApp.API.Extensions
         public int UserId { get; set; }
         public string Gender { get; set; }
         public int MinAge { get; set; } = 18;
-        public int MaxAge { get; set; } = 99;   
+        public int MaxAge { get; set; } = 99;
+        public bool Likees { get; set; } = false;
+        public bool Likers { get; set; } = false;
         private const int MaxPageSize = 50;
         public string OrderBy { get; set; }
         public int PageNumber { get; set; } = 1;

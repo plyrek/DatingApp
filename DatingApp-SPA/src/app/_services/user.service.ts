@@ -25,7 +25,7 @@ constructor(private http: HttpClient) { }
       // }
 
 // ------- Get User Method Start--------
-getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<User[]>> {
+getUsers(page?, itemsPerPage?, userParams?, likesParam?): Observable<PaginatedResult<User[]>> {
   // This is used to store the info coming back from a get user call.
   // Both the Users and the Pagination info in the headers.
   // The class resides in the pagination interface model, but is initialized here on the call.
@@ -43,6 +43,14 @@ getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<User[]>>
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
+  }
+
+  if (likesParam === 'Likers') {
+    params = params.append('likers', 'true');
+  }
+
+  if (likesParam === 'Likees') {
+    params = params.append('likees', 'true');
   }
 
   // The new http.Get request returns the optional observable response to load the
@@ -84,6 +92,10 @@ setMainPhoto(userId: number, id: number) {
 // ------- deletePhoto Method --------
 deletePhoto(userId: number, id: number) {
   return this.http.delete(this.baseUrl + 'userdata/' + userId + '/photos/' + id);
+}
+
+sendLike(id: Number, recipientId: Number) {
+  return this.http.post(this.baseUrl + 'userdata/' + id + '/like/' + recipientId, {});
 }
 
 }

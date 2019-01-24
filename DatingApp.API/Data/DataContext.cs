@@ -12,5 +12,26 @@ namespace DatingApp.API.Data
         public DbSet<Users> Users {get; set;}
 
         public DbSet<Photo> Photos {get; set;}
+
+        public DbSet<Like> Likes { get; set; }
+
+        //Our override of OnModelCreating to tell ef how we want to use our many to many likes relationship
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Like>().HasKey(k => new {k.LikerId, k.LikeeId});
+            
+            builder.Entity<Like>()
+                .HasOne(u => u.Likee)
+                .WithMany(u => u.Likers)
+                .HasForeignKey(u => u.LikeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                builder.Entity<Like>()
+                .HasOne(u => u.Liker)
+                .WithMany(u => u.Likees)
+                .HasForeignKey(u => u.LikerId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
     }
-}
+} 
